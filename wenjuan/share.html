@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=750, user-scalable=no, target-densitydpi=device-dpi">
+    <title>长按保存图片</title>
+    <link rel="stylesheet" href="css/index.css?seq=100" type="text/css">
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="js/jweixin-1.0.0.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+    //监测
+      var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+      document.write(unescape("%3Cspan id='cnzz_stat_icon_1273201395'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1273201395' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script>
+        /*****************************judage the browse*******************************/
+                        // 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
+//                        var useragent = navigator.userAgent;
+//                        if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+//                            // 这里警告框会阻塞当前页面继续加载
+//                            alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+//                            // 以下代码是用javascript强行关闭当前页面
+//                            var opened = window.open('about:blank', '_self');
+//                            opened.opener = null;
+//                            opened.close();
+//                        }
+        /******************************微信分享操作*******************************/
+        var seq = getQueryString('seq')
+        var currenturl = location.href.split('#')[0];
+        var url = encodeURIComponent(currenturl);
+        $.ajax({
+            type:"GET",
+            url:"/wx/getJssdkConfig?url=" + url,
+            success:function(data){
+                wx.config({
+                    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                    appId: data.appid, // 必填，公众号的唯一标识
+                    timestamp: data.timestamp, // 必填，生成签名的时间戳
+                    nonceStr: data.nonceStr, // 必填，生成签名的随机串
+                    signature: data.signature,// 必填，签名，见附录1
+                    jsApiList: [
+                        'onMenuShareAppMessage',
+                        'onMenuShareTimeline'
+                    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                });
+            }
+        });
+        wx.ready(function(){
+            /*发送给朋友*/
+            wx.onMenuShareAppMessage({
+                title : '没想到你与宝宝前世是。。。', // 分享标题
+                desc : '都说女儿是爸爸的前世情人，那妈妈和宝宝呢？', // 分享描述
+                link : 'https://wx.gemii.cc/gemii/wenjuan/index.html?seq='+seq, // 分享链接
+                imgUrl : 'https://wx.gemii.cc/gemii/wenjuan/images/icon.jpg', // 分享图标
+                type : '', // 分享类型,music、video或link，不填默认为link
+                dataUrl : '', // 如果type是music或video，则要提供数据链接，默认为空
+                success : function() {
+                    // 用户确认分享后执行的回调函数
+
+                },
+                cancel : function() {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
+            /*分享到朋友圈*/
+            wx.onMenuShareTimeline({
+                title : '没想到你与宝宝前世是。。。', // 分享标题
+                link: 'https://wx.gemii.cc/gemii/wenjuan/index.html?seq='+seq, // 分享链接
+                imgUrl: 'https://wx.gemii.cc/gemii/wenjuan/images/icon.jpg', // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+        });
+    </script>
+</head>
+<body onload="load()">
+<div class="container">
+
+</div>
+<div class="wrap" style="display: none"></div>
+<div class="QRcode_wrap" style="display: none"></div>
+</body>
+<script>
+    var height = document.documentElement.clientHeight;
+    var width = document.documentElement.clientWidth;
+    $(".container").css("height",1332+"px");
+    function load(){
+      $(".container").append('<img src = "./images/page_'+seq+'.png" width="'+width+'" >')
+      $(".container").append('<img class = "real" src = "./images/share_'+seq+'.png" width="'+width+'">')
+    }
+
+</script>
+</html>

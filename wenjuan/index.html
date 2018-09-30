@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=750, user-scalable=no, target-densitydpi=device-dpi">
+    <title>宝宝和你的前世关系</title>
+    <link rel="stylesheet" href="css/index.css?seq=100" type="text/css">
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="js/jweixin-1.0.0.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+    //监测
+      var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+      document.write(unescape("%3Cspan id='cnzz_stat_icon_1273201395'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1273201395' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script>
+        /*****************************judage the browse*******************************/
+                        // 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
+                        // var useragent = navigator.userAgent;
+                        // if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+                        //     // 这里警告框会阻塞当前页面继续加载
+                        //     alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+                        //     // 以下代码是用javascript强行关闭当前页面
+                        //     var opened = window.open('about:blank', '_self');
+                        //     opened.opener = null;
+                        //     opened.close();
+                        // }
+        /******************************微信分享操作*******************************/
+        var currenturl = location.href.split('#')[0];
+        var url = encodeURIComponent(currenturl);
+        $.ajax({
+            type:"GET",
+            url:"/wx/getJssdkConfig?url=" + url,
+            success:function(data){
+                wx.config({
+                    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                    appId: data.appid, // 必填，公众号的唯一标识
+                    timestamp: data.timestamp, // 必填，生成签名的时间戳
+                    nonceStr: data.nonceStr, // 必填，生成签名的随机串
+                    signature: data.signature,// 必填，签名，见附录1
+                    jsApiList: [
+                        'onMenuShareAppMessage',
+                        'onMenuShareTimeline'
+                    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                });
+            }
+        });
+        wx.ready(function(){
+            /*发送给朋友*/
+            wx.onMenuShareAppMessage({
+                title : '没想到你与宝宝前世是。。。', // 分享标题
+                desc : '都说女儿是爸爸的前世情人，那妈妈和宝宝呢？', // 分享描述
+                link : 'https://wx.gemii.cc/gemii/wenjuan/index.html', // 分享链接
+                imgUrl : 'https://wx.gemii.cc/gemii/wenjuan/images/icon.jpg', // 分享图标
+                type : '', // 分享类型,music、video或link，不填默认为link
+                dataUrl : '', // 如果type是music或video，则要提供数据链接，默认为空
+                success : function() {
+                    // 用户确认分享后执行的回调函数
+
+                },
+                cancel : function() {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
+            /*分享到朋友圈*/
+            wx.onMenuShareTimeline({
+                title : '没想到你与宝宝前世是。。。', // 分享标题
+                link: 'https://wx.gemii.cc/gemii/wenjuan/index.html', // 分享链接
+                imgUrl: 'https://wx.gemii.cc/gemii/wenjuan/images/icon.jpg', // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+        });
+    </script>
+</head>
+<body onload="indexload()">
+
+<div class="container" >
+    <div class="outerWrappr">
+    <div class="headWrapper">
+    </div>
+    <div class="formBox">
+      <div class="section">
+        <div class="qhead">
+          <i name='1'></i>
+          <div class="qBox">带宝宝一起出去玩的时候，遇到什么最尴尬？</div>
+        </div>
+        <div class="selectWrapper">
+          <div class="optionBox">
+            <div class="dot"></div>
+            <div class="anwser">
+              给宝宝买冰淇淋发现没带钱
+            </div>
+          </div>
+          <div class="optionBox">
+            <div class="dot"></div>
+            <div class="anwser">
+              宝宝恶作剧掀自己的裙子
+            </div>
+          </div>
+          <div class="optionBox">
+            <div class="dot"></div>
+            <div class="anwser">
+              迎面撞到前任
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg">
+        <div class="bg1"></div>
+      </div>
+      <div class="section">
+        <div class="qhead">
+          <i name='2'></i>
+          <div class="qBox">抽中了一个免费旅游的机会，你会选择？</div>
+        </div>
+        <div class="selectWrapper">
+          <div class="optionBox">
+            <div class="dot"></div>
+            <div class="anwser">
+              法国浪漫之旅
+            </div>
+          </div>
+          <div class="optionBox">
+            <div class="dot"></div>
+            <div class="anwser">
+              瑞士滑雪
+            </div>
+          </div>
+          <div class="optionBox">
+            <div class="dot"></div>
+            <div class="anwser">
+              日本北海道温泉
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg">
+
+      </div>
+      <div class="section">
+        <div class="qhead">
+          <i name='3'></i>
+          <div class="qBox">下面哪件事情让你觉得最无奈？</div>
+        </div>
+        <div class="selectWrapper">
+          <div class="optionBox">
+            <div class="dot"></div>
+            <div class="anwser">
+              父母照顾孩子时的老旧观念
+            </div>
+          </div>
+          <div class="optionBox">
+            <div class="dot"></div>
+            <div class="anwser">
+              宝宝拉了一裤子便便还哈哈笑
+            </div>
+          </div>
+          <div class="optionBox">
+            <div class="dot"></div>
+            <div class="anwser">
+              因为宝宝，闺蜜聚会都无法参加
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg">
+        <div class="bg2"></div>
+      </div>
+      <div class="section">
+        <div class="qhead">
+          <i name='4'></i>
+          <div class="qBox">你更喜欢猫还是狗？</div>
+        </div>
+        <div class="selectWrapper">
+          <div class="optionBox">
+            <div class="dot"></div>
+            <div class="anwser">
+              猫咪
+            </div>
+          </div>
+          <div class="optionBox">
+            <div class="dot"></div>
+            <div class="anwser">
+              狗狗
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg">
+      </div>
+      <div class="section">
+        <div class="qhead">
+          <i name='5'></i>
+          <div class="qBox">富裕的亲生的父母要从养父母那带走你，你愿意吗？</div>
+        </div>
+        <div class="selectWrapper">
+          <div class="optionBox">
+            <div class="dot"></div>
+            <div class="anwser">
+               愿意
+            </div>
+          </div>
+          <div class="optionBox">
+            <div class="dot"></div>
+            <div class="anwser">
+              不愿意
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg">
+        <div class="bg3"></div>
+      </div>
+      <div class="section">
+        <div class="qhead">
+          <i name='6'></i>
+          <div class="qBox">假如这个母亲节，宝宝为你准备了礼物，你觉得收到什么最惊喜呢？</div>
+        </div>
+        <div class="selectWrapper">
+          <div class="optionBox">
+            <div class="dot"></div>
+            <div class="anwser">
+              偷偷帮你做了家务
+            </div>
+          </div>
+          <div class="optionBox">
+            <div class="dot"></div>
+            <div class="anwser">
+              买了一束康乃馨
+            </div>
+          </div>
+          <div class="optionBox">
+            <div class="dot"></div>
+            <div class="anwser">
+              画了一幅节日贺卡
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg"></div>
+      <div class="buttwrapper" onclick="a()"></div>
+    </div>
+  </div>
+</div>
+<script>
+
+function indexload(){
+  var height = document.documentElement.clientHeight;
+  $(".container").css("height",height+"px");
+  $(".container").css("overflow-y","auto");
+  $('.formBox >.section').each(function(i,item){
+    $(item).find('.optionBox').each(function(index,inner){
+      $(inner).click(function(){
+          $(inner).parents(".section").find('.dot').each(function(v,outer){
+            $(outer).removeClass('selected')
+          })
+          data['q'+(i+1)] = index+1
+          $(inner).find('.dot').addClass('selected')
+      })
+    })
+  })
+
+
+  $(".buttwrapper").get(0).addEventListener("click",function (e) {
+    e.preventDefault()
+    _czc.push(['_trackEvent','测试页面','点击','点击跳转按钮',11,'click_jump'])
+    submit()
+  })
+}
+      function removeModal(){
+      $('.modal').remove()
+    }
+
+    function submit(){
+      var success = '<div class="modal" onclick="removeModal()"><div class="resultBox "><img src="./images/success.png" /><div>提交成功</div></div></div>'
+      var fail = '<div class="modal" onclick="removeModal()"><div class="resultBox "><img src="./images/fail.png" /><div>提交失败</div></div></div>'
+      var result = []
+
+      var _fail = false
+      for(v in data){
+        if(data[v]==''){
+          _fail = true
+        }
+      }
+      if(_fail){
+          $('body').append(fail)
+      }else {
+        var seq = strategy(data)
+        if(seq!='fail'){
+          $('body').append(success)
+            setTimeout(function () {
+                location.href = location.origin+'/gemii/wenjuan/share.html?seq='+seq
+            },800)
+
+        }else {
+          $('body').append(fail)
+        }
+      }
+    }
+
+
+</script>
+</body>
+</html>
